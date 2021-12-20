@@ -1,4 +1,7 @@
 import os, sys, time
+
+POW_OF_TWO = [256,128,64,32,16,8,4,2,1]
+
 def printGrid(grid):
   for row in grid:
     string = ""
@@ -28,7 +31,7 @@ def getIndex(grid, i, j, default):
   for x in range(-1,2):
     for y in range(-1,2):
       if numbers[counter] == -1:
-        numbers[counter] = grid[i+x][j+y]*pow(2,8-counter) 
+        numbers[counter] = grid[i+x][j+y]*POW_OF_TWO[counter] 
       counter += 1
   return sum(numbers)
 
