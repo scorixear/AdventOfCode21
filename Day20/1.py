@@ -1,7 +1,5 @@
 import os, sys, time
 
-POW_OF_TWO = [256,128,64,32,16,8,4,2,1]
-
 def printGrid(grid):
   for row in grid:
     string = ""
@@ -10,30 +8,15 @@ def printGrid(grid):
     print(string)
 
 def getIndex(grid, i, j, default):
-  numbers = [-1 for i in range(9)]
-  if i == 0:
-    numbers[0]=default*256
-    numbers[1]=default*128
-    numbers[2]=default*64
-  elif i +1 == len(grid):
-    numbers[6] = default*4
-    numbers[7] = default*2
-    numbers[8] = default
-  if j == 0:
-    numbers[0] = default*256
-    numbers[3] = default*32
-    numbers[6] = default*4
-  elif j +1 == len(grid[i]):
-    numbers[2] = default*64
-    numbers[5] = default*8
-    numbers[8] = default
-  counter = 0
-  for x in range(-1,2):
-    for y in range(-1,2):
-      if numbers[counter] == -1:
-        numbers[counter] = grid[i+x][j+y]*POW_OF_TWO[counter] 
-      counter += 1
-  return sum(numbers)
+  value = 0;
+  for x in range(-1, 2):
+    for y in range(-1, 2):
+      value <<= 1
+      if i+x >= 0 and i+x < len(grid) and j+y >= 0 and j+y < len(grid[i]):
+        value += grid[i+x][j+y]
+      else:
+        value += default
+  return value
 
 def doStep(grid, imageAlg, default):
   newGrid = [row[:] for row in grid]
